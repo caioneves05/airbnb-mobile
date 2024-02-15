@@ -1,9 +1,18 @@
+import { Link } from "expo-router"
 import { View, Text } from "react-native"
 
 const Page = () => {
     return(
         <View>
-            <Text>Page</Text>
+            <Link href={"/(modals)/login"}>
+                Login
+            </Link>
+            <Link href={"/(modals)/booking"}>
+                Bookings
+            </Link>
+            <Link href={"/listing/1232"}>
+                Listing Details
+            </Link>
         </View>
     )
 }
