@@ -9,13 +9,13 @@ import * as SecureStore from 'expo-secure-store';
 
 import { useEffect } from 'react';
 
-import { TouchableOpacity, useColorScheme } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
 
-const CLERK_PUBLISHABLE_KEY = process.env.CLERK_PUBLISHABLE_KEY;
+const CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
 const tokenCache = {
-  async getToken(key:string) {
+  async getToken(key: string) {
     try {
       return SecureStore.getItemAsync(key)
     } catch (error) {
@@ -23,11 +23,11 @@ const tokenCache = {
     }
   },
 
-  async saveToken(key:string, value: string) {
+  async saveToken(key: string, value: string) {
     try {
       return SecureStore.setItemAsync(key, value)
     } catch (error) {
-      return error;
+      return
     }
   }
 }
@@ -49,6 +49,7 @@ export default function RootLayout() {
   const [loaded, error] = useFonts({
     'mon': require('../assets/fonts/Montserrat-Regular.ttf'),
     ...FontAwesome.font,
+    'mon-sb': require('../assets/fonts/Montserrat-SemiBold.ttf'),
     'mon-b': require('../assets/fonts/Montserrat-Bold.ttf'),
     ...FontAwesome.font,
   });
@@ -84,7 +85,7 @@ function RootLayoutNav() {
     if (isLoaded && !isSignedIn) {
       router.push('/(modals)/login')
     }
-  })
+  }, [isLoaded])
 
   return (
       <Stack>

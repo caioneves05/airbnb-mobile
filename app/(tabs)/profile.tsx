@@ -1,9 +1,19 @@
-import { View, Text } from "react-native"
+import { SignedIn, useAuth } from "@clerk/clerk-expo"
+import { Link } from "expo-router"
+import { View, Text, Button } from "react-native"
 
 const Profile = () => {
-    return(
+
+    const { signOut, isSignedIn } = useAuth()
+
+    return (
         <View>
-            <Text>Profile</Text>
+            <Button title="Log out" onPress={() => signOut()} />
+            { !SignedIn && 
+            <Link href={'/(modals)/login'}>
+                <Text>Login</Text>
+            </Link>
+            }
         </View>
     )
 }
