@@ -3,6 +3,7 @@ import { defaultStyles } from "@/constants/Styles"
 import { useWarmUpBrowser } from "@/hooks/useWarmUpBrowser"
 import { useOAuth } from "@clerk/clerk-expo"
 import { Ionicons } from "@expo/vector-icons"
+import { useRouter } from "expo-router"
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native"
 
 enum Strategy {
@@ -14,7 +15,7 @@ enum Strategy {
 const Page = () => {
 
     useWarmUpBrowser();
-
+    const router = useRouter()
     const { startOAuthFlow: googleAuth } = useOAuth({ strategy: Strategy.Google })
     const { startOAuthFlow: appleAuth } = useOAuth({ strategy: Strategy.Apple })
     const { startOAuthFlow: facebookAuth } = useOAuth({ strategy: Strategy.Facebook })
@@ -28,8 +29,13 @@ const Page = () => {
 
         try {
             const { createdSessionId, setActive } = await selectedAuth()
+            if(createdSessionId) {
+                setActive!({ session: createdSessionId })
+
+                router.back()
+            }
         } catch (error) {
-            
+            console.log('OAuth error:', error);   
         }
     }
 
