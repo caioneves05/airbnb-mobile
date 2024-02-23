@@ -4,6 +4,7 @@ import { Link } from "expo-router";
 import { useRef, useState } from "react";
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context";
+import * as Haptics from 'expo-haptics';
 
 const categories = [
     {
@@ -38,10 +39,20 @@ const categories = [
   
 
 export const ExploreHeader = () => {
-
+  const scrollRef = useRef<ScrollView>(null)
   const itemsRef = useRef<Array<TouchableOpacity | null>>([]);
   const [activeIndex, setActiveIndex] = useState(0)
 
+  const selectCategory = (index: number) => {
+    const selected = itemsRef.current[index];
+    setActiveIndex(index)
+
+    selected?.measure((x) => {
+      scrollRef.current?.scrollTo({x: x, y:0, animated: true})
+    })
+
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
+  } 
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
@@ -62,18 +73,23 @@ export const ExploreHeader = () => {
                         </TouchableOpacity>
                     </View>
 
-                    <ScrollView horizontal showsVerticalScrollIndicator={false} contentContainerStyle={{
+                    <ScrollView
+                    ref={scrollRef}
+                    horizontal 
+                    showsVerticalScrollIndicator={false} 
+                    contentContainerStyle={{
                       alignItems: 'center',
                       gap: 20,
                       paddingHorizontal: 16
                     }}>
                         { categories.map((categorie, index) => (
-                          <TouchableOpacity 
+                          <TouchableOpacity
+                          onPress={() => selectCategory(index)}
                           key={index} 
                           ref={(el) => itemsRef.current[index] = el}
                           style={activeIndex === index ? styles.categoriesBtnActive : styles.categoriesBtn}
                           >
-                            <MaterialIcons name={categorie.icon as any} size={24}/>
+                            <MaterialIcons name={categorie.icon as any} size={24} color={activeIndex === index ? '#000' : Colors.grey}/>
                             <Text>{categorie.name}</Text>
                           </TouchableOpacity>
                         ))}
