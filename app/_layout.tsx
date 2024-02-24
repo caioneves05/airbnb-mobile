@@ -17,20 +17,20 @@ const CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 const tokenCache = {
   async getToken(key: string) {
     try {
-      return SecureStore.getItemAsync(key)
+      return SecureStore.getItemAsync(key);
     } catch (error) {
-      return null
+      return null;
     }
   },
 
   async saveToken(key: string, value: string) {
     try {
-      return SecureStore.setItemAsync(key, value)
+      return SecureStore.setItemAsync(key, value);
     } catch (error) {
-      return
+      return;
     }
   }
-}
+};
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -78,14 +78,14 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
 
-  const router = useRouter()
-  const { isLoaded, isSignedIn } = useAuth()
+  const router = useRouter();
+  const { isLoaded, isSignedIn } = useAuth();
 
   useEffect(() => {
     if (isLoaded && !isSignedIn) {
-      router.push('/(modals)/login')
+      router.push('/(modals)/login');
     }
-  }, [isLoaded])
+  }, [isLoaded]);
 
   return (
       <Stack>

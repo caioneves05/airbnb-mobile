@@ -2,7 +2,7 @@ import Colors from "@/constants/Colors";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { Link } from "expo-router";
 import { useRef, useState } from "react";
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as Haptics from 'expo-haptics';
 
@@ -36,23 +36,29 @@ const categories = [
       icon: 'nature-people',
     },
   ];
+
+
+  interface Props {
+    onCategoryChanged: (category: string) => void
+  }
   
 
-export const ExploreHeader = () => {
-  const scrollRef = useRef<ScrollView>(null)
+export const ExploreHeader = ({ onCategoryChanged }: Props) => {
+  const scrollRef = useRef<ScrollView>(null);
   const itemsRef = useRef<Array<TouchableOpacity | null>>([]);
-  const [activeIndex, setActiveIndex] = useState(0)
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const selectCategory = (index: number) => {
     const selected = itemsRef.current[index];
-    setActiveIndex(index)
+    setActiveIndex(index);
 
     selected?.measure((x) => {
-      scrollRef.current?.scrollTo({x: x, y:0, animated: true})
-    })
+      scrollRef.current?.scrollTo({x: x, y:0, animated: true});
+    });
 
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
-  } 
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    onCategoryChanged(categories[index].name);
+  }; 
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
@@ -79,7 +85,7 @@ export const ExploreHeader = () => {
                     showsVerticalScrollIndicator={false} 
                     contentContainerStyle={{
                       alignItems: 'center',
-                      gap: 20,
+                      gap: 30,
                       paddingHorizontal: 16
                     }}>
                         { categories.map((categorie, index) => (
@@ -96,8 +102,8 @@ export const ExploreHeader = () => {
                     </ScrollView>
                 </View>
         </SafeAreaView>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -162,4 +168,4 @@ const styles = StyleSheet.create({
       borderBottomWidth: 2,
       paddingBottom: 8,
     },
-})
+});

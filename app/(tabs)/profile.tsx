@@ -1,10 +1,10 @@
-import { SignedIn, useAuth } from "@clerk/clerk-expo"
-import { Link } from "expo-router"
-import { View, Text, Button } from "react-native"
+import { SignedIn, useAuth } from "@clerk/clerk-expo";
+import { Link } from "expo-router";
+import { View, Text, Button } from "react-native";
 
 const Profile = () => {
 
-    const { signOut, isSignedIn } = useAuth()
+    const { signOut, isSignedIn } = useAuth();
 
     return (
         <View>
@@ -15,7 +15,7 @@ const Profile = () => {
             </Link>
             }
         </View>
-    )
-}
+    );
+};
 
-export default Profile
+export default Profile;

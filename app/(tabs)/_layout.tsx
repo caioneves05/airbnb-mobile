@@ -1,8 +1,8 @@
-import Colors from "@/constants/Colors"
-import { Tabs } from "expo-router"
-import { FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons"
-import { FontAwesome } from "@expo/vector-icons"
-import { Ionicons } from "@expo/vector-icons"
+import Colors from "@/constants/Colors";
+import { Tabs } from "expo-router";
+import { FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 
 const Layout = () => {
     return(
@@ -43,7 +43,7 @@ const Layout = () => {
                 tabBarIcon: ({ color, size }) => <Ionicons name="person-circle-outline" color={color} size={size}/>
             }} />
         </Tabs>
-    )
-}
+    );
+};
 
-export default Layout
+export default Layout;

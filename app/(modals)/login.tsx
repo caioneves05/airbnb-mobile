@@ -1,10 +1,10 @@
-import Colors from "@/constants/Colors"
-import { defaultStyles } from "@/constants/Styles"
-import { useWarmUpBrowser } from "@/hooks/useWarmUpBrowser"
-import { useOAuth } from "@clerk/clerk-expo"
-import { Ionicons } from "@expo/vector-icons"
-import { useRouter } from "expo-router"
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native"
+import Colors from "@/constants/Colors";
+import { defaultStyles } from "@/constants/Styles";
+import { useWarmUpBrowser } from "@/hooks/useWarmUpBrowser";
+import { useOAuth } from "@clerk/clerk-expo";
+import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 
 enum Strategy {
     Google = 'oauth_google',
@@ -15,29 +15,29 @@ enum Strategy {
 const Page = () => {
 
     useWarmUpBrowser();
-    const router = useRouter()
-    const { startOAuthFlow: googleAuth } = useOAuth({ strategy: Strategy.Google })
-    const { startOAuthFlow: appleAuth } = useOAuth({ strategy: Strategy.Apple })
-    const { startOAuthFlow: facebookAuth } = useOAuth({ strategy: Strategy.Facebook })
+    const router = useRouter();
+    const { startOAuthFlow: googleAuth } = useOAuth({ strategy: Strategy.Google });
+    const { startOAuthFlow: appleAuth } = useOAuth({ strategy: Strategy.Apple });
+    const { startOAuthFlow: facebookAuth } = useOAuth({ strategy: Strategy.Facebook });
 
     const onSelectAuth = async (strategy: Strategy) => {
         const selectedAuth = {
             [Strategy.Google]: googleAuth,
             [Strategy.Apple]: appleAuth,
             [Strategy.Facebook]: facebookAuth,
-        }[strategy]
+        }[strategy];
 
         try {
-            const { createdSessionId, setActive } = await selectedAuth()
+            const { createdSessionId, setActive } = await selectedAuth();
             if(createdSessionId) {
-                setActive!({ session: createdSessionId })
+                setActive!({ session: createdSessionId });
 
-                router.back()
+                router.back();
             }
         } catch (error) {
             console.log('OAuth error:', error);   
         }
-    }
+    };
 
     return(
         <View style={styles.container}>
@@ -83,8 +83,8 @@ const Page = () => {
                 </TouchableOpacity>
             </View>
         </View>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -118,5 +118,5 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontFamily: 'mon-sb'
     }
-})
-export default Page
+});
+export default Page;
