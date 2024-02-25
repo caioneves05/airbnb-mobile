@@ -1,9 +1,8 @@
 import { Ionicons } from '@expo/vector-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { DarkTheme, DefaultTheme, ThemeProvider, useRoute } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { useRouter } from 'expo-router';
-import { Stack, useNavigation } from 'expo-router';
+import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import * as SecureStore from 'expo-secure-store';
 
@@ -103,7 +102,8 @@ function RootLayoutNav() {
           ),
         }}/>
         <Stack.Screen name="listing/[id]" options={{
-          headerTitle: ''
+          headerTitle: '',
+          headerTransparent: true,
         }}/>
         <Stack.Screen name="(modals)/booking" options={{
           presentation: 'transparentModal',

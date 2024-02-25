@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Colors from "@/constants/Colors";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { Link } from "expo-router";
@@ -85,7 +86,8 @@ export const ExploreHeader = ({ onCategoryChanged }: Props) => {
                     showsVerticalScrollIndicator={false} 
                     contentContainerStyle={{
                       alignItems: 'center',
-                      gap: 30,
+                      gap: 20,
+                      marginHorizontal: 20,
                       paddingHorizontal: 16
                     }}>
                         { categories.map((categorie, index) => (
