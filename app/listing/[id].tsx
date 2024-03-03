@@ -35,9 +35,7 @@ const Page = () => {
 
     useLayoutEffect(() => {
         setOptions({
-          headerBackground: () => {
-            <Animated.View style={[styles.header]} />;
-          },
+          headerBackground: () => <Animated.View style={[styles.header, headerAnimatedStyle]} />,
           headerRight: () => (
             <View style={styles.bar}>
               <TouchableOpacity style={styles.roundButton} onPress={() => shareListing()}>
@@ -73,7 +71,13 @@ const Page = () => {
           }
         ]
       };
-    }); 
+    });
+
+    const headerAnimatedStyle = useAnimatedStyle(() => {
+      return {
+        opacity: interpolate(scrollOffset.value, [0, 300 / 2], [0,1])
+      };
+    });
 
 
     return(

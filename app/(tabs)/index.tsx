@@ -4,7 +4,10 @@ import { Listings } from "@/components/Listings";
 import { Stack } from "expo-router";
 import { useMemo, useState } from "react";
 import { View } from "react-native";
+import { ListingsMap } from "@/components/ListingsMap";
+
 import listingsData from '../../assets/data/airbnb-listings.json';
+import listingsDataGeo from '../../assets/data/airbnb-listings.geo.json';
 
 const Page = () => {
     const [category, setCategory] = useState('');
@@ -20,7 +23,8 @@ const Page = () => {
             <Stack.Screen options={{
                 header: () => <ExploreHeader onCategoryChanged={onDataChanged}/>
             }}/>
-            <Listings listings={items} category={category}/>
+            {/* <Listings listings={items} category={category}/> */}
+            <ListingsMap listings={listingsDataGeo}/>
         </View>
     );
 };
