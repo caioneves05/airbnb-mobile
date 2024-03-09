@@ -1,7 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { defaultStyles } from "@/constants/Styles";
-import { StyleSheet, View } from "react-native";
-import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import { useRouter } from "expo-router";
+import { StyleSheet, View, Text } from "react-native";
+import { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import MapView from "react-native-map-clustering";
+
 
 interface Props {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -9,25 +12,33 @@ interface Props {
 } 
 
 const INITIAL_REGION = {
-    latitude: 37.33,
-    longitude: -122,
+    latitude: 52.431073,
+    longitude: 13.389827,
     latitudeDelta: 9,
     longitudeDelta: 9
 };
 
 export const ListingsMap = ({ listings }: Props) => {
 
-    const onMarkerSelected = (event: any) => {
-        console.log(event);
+    const router = useRouter(); 
+
+    const onMarkerSelected = (item: any) => {
+        router.push(`/listing/${item.properties.id}`);
     };
+
 
     return (
         <View style={defaultStyles.container}>
-            <MapView style={StyleSheet.absoluteFill} 
+            <MapView style={StyleSheet.absoluteFill}
+            animationEnabled={false}
             provider={PROVIDER_GOOGLE}
             initialRegion={INITIAL_REGION}
             showsUserLocation 
-            showsMyLocationButton>
+            showsMyLocationButton
+            clusterColor="#fff"
+            clusterTextColor="#000"
+            clusterFontFamily="mon-sb"
+            >
                 {listings.features.map((listing: any) => (
                     <Marker 
                     key={listing.properties.id}
@@ -35,7 +46,12 @@ export const ListingsMap = ({ listings }: Props) => {
                     coordinate={{    
                         latitude: +listing.properties.latitude,
                         longitude: +listing.properties.longitude
-                    }} />
+                    }} 
+                    >
+                    <View style={styles.marker}>
+                        <Text style={styles.markerText}>€ {listing.properties.price} </Text>
+                    </View>
+                    </Marker>
                 ))}
             </MapView>
         </View>
@@ -46,4 +62,23 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
+    marker: {
+        backgroundColor: '#fff',
+        borderRadius: 12,
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 6,
+        elevation: 5,
+        shadowColor: '#000',
+        shadowOpacity: 0.2,
+        shadowRadius: 6,
+        textShadowOffset: {
+            width: 1,
+            height: 10
+        }
+    },
+    markerText: {
+        fontSize: 14,
+        fontFamily: 'mon-sb'
+    }
 });
