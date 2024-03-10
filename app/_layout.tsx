@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 
 import { TouchableOpacity } from 'react-native';
 import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
@@ -87,6 +88,7 @@ function RootLayoutNav() {
   }, [isLoaded]);
 
   return (
+    <GestureHandlerRootView style={{  flex: 1 }}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="(modals)/login" options={{
@@ -115,5 +117,7 @@ function RootLayoutNav() {
           ),
         }}/>
       </Stack>
+    </GestureHandlerRootView>
+
   );
 }

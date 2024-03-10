@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { defaultStyles } from "@/constants/Styles";
 import { Ionicons } from "@expo/vector-icons";
+import { BottomSheetFlatList, BottomSheetFlatListMethods } from "@gorhom/bottom-sheet";
 import { Link } from "expo-router";
 import { useEffect, useRef, useState } from "react";
-import { FlatList, ListRenderItem, StyleSheet, Text, Image, TouchableOpacity, View } from "react-native";
+import { ListRenderItem, StyleSheet, Text, Image, TouchableOpacity, View } from "react-native";
 
 import Animated, { FadeInRight, FadeOutLeft } from "react-native-reanimated";
 
@@ -11,11 +12,20 @@ import Animated, { FadeInRight, FadeOutLeft } from "react-native-reanimated";
 interface Props {
     listings: any[];
     category: string;
+    refresh: number;
 }
 
-export const Listings = ({ category, listings: items }: Props) => {
+export const Listings = ({ category, listings: items, refresh }: Props) => {
     const [loading, setLoading] = useState(false);
-    const listRef = useRef<FlatList>(null);
+    const listRef = useRef<BottomSheetFlatListMethods>(null);
+
+    useEffect(() => {
+        
+        if(refresh) {
+            listRef.current?.scrollToOffset({ offset: 0, animated: true });
+        }
+
+    }, [refresh]);
 
     useEffect(() => {
         console.log('RELOAD LISTINGS', items.length);
@@ -23,7 +33,7 @@ export const Listings = ({ category, listings: items }: Props) => {
 
         setTimeout(() => {
             setLoading(false);
-        }, 2000);
+        }, 800);
     }, [category]);
 
     const renderRow: ListRenderItem<any> = ({ item }) => {
@@ -56,10 +66,15 @@ export const Listings = ({ category, listings: items }: Props) => {
 
     return (
         <View style={defaultStyles.container}>
-            <FlatList
+            <BottomSheetFlatList
             renderItem={renderRow}
             ref={listRef}
-            data={loading ? [] : items}/>
+            data={loading ? [] : items}
+            ListHeaderComponent={
+                <Text style={styles.info}>
+                    {items.length} homes
+                </Text>}
+            />
         </View>
     );
 };
@@ -74,5 +89,11 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 300,
         borderRadius: 10
+    },
+    info: {
+        textAlign: 'center',
+        fontFamily: 'mon-sb',
+        fontSize: 16,
+        marginTop: 4
     }
 });

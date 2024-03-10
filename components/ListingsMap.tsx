@@ -4,6 +4,7 @@ import { useRouter } from "expo-router";
 import { StyleSheet, View, Text } from "react-native";
 import { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import MapView from "react-native-map-clustering";
+import { memo } from "react";
 
 
 interface Props {
@@ -18,7 +19,7 @@ const INITIAL_REGION = {
     longitudeDelta: 9
 };
 
-export const ListingsMap = ({ listings }: Props) => {
+export const ListingsMap = memo(({ listings }: Props) => {
 
     const router = useRouter(); 
 
@@ -56,7 +57,7 @@ export const ListingsMap = ({ listings }: Props) => {
             </MapView>
         </View>
     );
-};
+});
 
 const styles = StyleSheet.create({
     container: {
