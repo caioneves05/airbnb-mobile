@@ -39,7 +39,7 @@ export const ListingBottomSheet = ({ listings, category }: Props) => {
                     category={category}/>
                     <View style={styles.absoluteBtn}>
                         <TouchableOpacity onPress={showMap} style={styles.btn}>
-                            <Text style={{ fontFamily: 'mon-sb', color: '#fff' }}>Map</Text>
+                            <Text style={{ color: '#fff' }}>Map</Text>
                             <Ionicons name="map" size={20} color="#fff" />
                         </TouchableOpacity>
                     </View>

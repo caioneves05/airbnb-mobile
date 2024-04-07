@@ -15,7 +15,6 @@ const Page = () => {
     const geoItems = useMemo(() => listingsDataGeo as any, []);
 
     const onDataChanged = (category: string) => {
-        console.log('CHANGED:', category);
         setCategory(category);
     };
 

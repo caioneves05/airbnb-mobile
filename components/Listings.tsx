@@ -28,7 +28,6 @@ export const Listings = ({ category, listings: items, refresh }: Props) => {
     }, [refresh]);
 
     useEffect(() => {
-        console.log('RELOAD LISTINGS', items.length);
         setLoading(true);
 
         setTimeout(() => {
@@ -45,18 +44,18 @@ export const Listings = ({ category, listings: items, refresh }: Props) => {
                         <Ionicons name="heart-outline" size={24} color={'#000'}/>
                     </TouchableOpacity>
                     <View style={{flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <Text style={{ fontSize: 16, fontFamily: 'mon-sb' }}>{item.name}</Text>
+                        <Text style={{ fontSize: 16 }}>{item.name}</Text>
                         <View style={{flexDirection: 'row', gap: 4 }}>
                             <Ionicons name="star" size={16}/>
-                            <Text style={{ fontFamily: 'mon-sb' }}>{item.review_scores_rating / 20}</Text>
+                            <Text>{item.review_scores_rating / 20}</Text>
                         </View>
                     </View>
 
-                    <Text style={{ fontFamily: 'mon' }}>{item.room_type}</Text>
+                    <Text>{item.room_type}</Text>
 
                     <View style={{ flexDirection: 'row', gap: 4 }}>
-                        <Text  style={{ fontFamily: 'mon-sb' }}>$ {item.price}</Text>
-                        <Text  style={{ fontFamily: 'mon' }}>night</Text>
+                        <Text>$ {item.price}</Text>
+                        <Text>night</Text>
                     </View>
                 </Animated.View>
 
@@ -92,7 +91,6 @@ const styles = StyleSheet.create({
     },
     info: {
         textAlign: 'center',
-        fontFamily: 'mon-sb',
         fontSize: 16,
         marginTop: 4
     }

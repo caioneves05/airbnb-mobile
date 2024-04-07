@@ -69,8 +69,8 @@ export const ExploreHeader = ({ onCategoryChanged }: Props) => {
                             <TouchableOpacity style={styles.searchBtn}>
                               <Ionicons name="search" size={24}/>
                               <View>
-                                <Text style={{ fontFamily: 'mon-sb' }}>Where to?</Text>
-                                <Text style={{ fontFamily: 'mon', color: Colors.grey }}>Anywhere . Any week . Add guests</Text>
+                                <Text>Where to?</Text>
+                                <Text style={{  color: Colors.grey }}>Anywhere . Any week . Add guests</Text>
                               </View>
                             </TouchableOpacity>
                         </Link>
@@ -148,12 +148,10 @@ const styles = StyleSheet.create({
     },
     categoryText: {
       fontSize: 14,
-      fontFamily: 'mon-sb',
       color: Colors.grey,
     },
     categoryTextActive: {
       fontSize: 14,
-      fontFamily: 'mon-sb',
       color: '#000'
     },
     categoriesBtn: {
